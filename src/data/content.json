@@ -56,6 +56,10 @@
       {
         "name": "Charcutería",
         "description": "Tabla con quesos, carnes frías, dips y acompañamientos."
+      },
+       {
+        "name": "Patel individual",
+        "description": "pastel individual para cada invitado sabor a escoger y toppings."
       }
     ],
     "note": "Personaliza las barras y agrega extras según tu evento."
