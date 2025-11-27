@@ -1,0 +1,63 @@
+{
+  "brand": {
+    "name": "Bonito Maíz",
+    "tagline": "Sabores que acompañan tus mejores momentos.",
+    "subtitle": "Snack bar para eventos, esquites especiales y antojitos mexicanos hechos con amor.",
+    "logoAlt": "Bonito Maíz logo",
+    "colors": {
+      "primary": "#0A1A4A",
+      "accent": "#D9A441",
+      "textLight": "#FAFAF7"
+    }
+  },
+  "contact": {
+    "phone": "+52 228 123 4567",
+    "email": "hola@bonitomaiz.com",
+    "location": "Veracruz, México",
+    "whatsappNumber": "5212281234567",
+    "whatsappMessage": "Hola Bonito Maíz, me gustaría hacer un pedido",
+    "social": {
+      "facebook": "https://facebook.com",
+      "instagram": "https://instagram.com"
+    }
+  },
+  "hero": {
+    "backgroundImage": "https://images.unsplash.com/photo-1613585270345-5ddf6a78b7af?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlc3F1aXRlcyUyMG1leGljYW4lMjBjb3JufGVufDF8fHx8MTc2NDIxODg0Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    "ctaMenu": "Ver Menú",
+    "ctaWhatsApp": "Pedir por WhatsApp"
+  },
+  "events": {
+    "ctaMessage": "¿Listo para hacer tu evento inolvidable?",
+    "ctaButton": "Cotizar mi Evento",
+    "ctaWhatsappMessage": "Hola Bonito Maíz, quiero cotizar para mi evento"
+  },
+  "orders": {
+    "title": "Barras para tus invitados",
+    "subtitle": "Precios escalados por número de personas. Todas incluyen montaje y servicio.",
+    "tiers": [
+      { "pax": "Hasta 30 pax", "price": "$3,500" },
+      { "pax": "50 pax", "price": "$5,500" },
+      { "pax": "80 pax", "price": "$7,800" },
+      { "pax": "100 pax", "price": "$9,500" }
+    ],
+    "bars": [
+      {
+        "name": "Esquites",
+        "description": "Vaso tradicional, toppings gourmet, chile del que pica y del que no."
+      },
+      {
+        "name": "Marquesitas",
+        "description": "Queso de bola y combinaciones dulces para todos los gustos."
+      },
+      {
+        "name": "Vasos locos",
+        "description": "Pepinos, jícamas, salsas y toppings a tu gusto."
+      },
+      {
+        "name": "Charcutería",
+        "description": "Tabla con quesos, carnes frías, dips y acompañamientos."
+      }
+    ],
+    "note": "Personaliza las barras y agrega extras según tu evento."
+  }
+}
