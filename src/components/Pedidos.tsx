@@ -1,4 +1,7 @@
+import { ArrowRight } from 'lucide-react';
 import content from '../data/content.json';
+import { CartSummary } from './CartSummary';
+import { SNACK_BARS } from '../data/snackBars';
 
 export function Pedidos() {
   const whatsappLink = `https://wa.me/${content.contact.whatsappNumber}?text=${encodeURIComponent('Hola, quiero cotizar una barra de snacks')}`;
@@ -21,38 +24,36 @@ export function Pedidos() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-          {/* Tiered pricing */}
-          <div className="lg:col-span-1 bg-white rounded-3xl shadow-lg p-8 border border-[#D9A441]/15">
-            <h3 className="text-[#0A1A4A] mb-4" style={{ fontFamily: 'Pacifico, cursive' }}>
-              Paquetes por número de invitados
-            </h3>
-            <div className="space-y-4">
-              {content.orders.tiers.map((tier) => (
-                <div
-                  key={tier.pax}
-                  className="flex items-center justify-between p-4 rounded-2xl bg-[#FAFAF7] border border-[#D9A441]/10"
-                >
-                  <span className="text-[#0A1A4A] font-semibold">{tier.pax}</span>
-                  <span className="text-[#D9A441] font-bold">{tier.price}</span>
-                </div>
-              ))}
-            </div>
-            <p className="text-sm text-[#222222] opacity-70 mt-4">{content.orders.note}</p>
-          </div>
+          {/* Cart summary */}
+          <CartSummary />
 
           {/* Bars */}
           <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {content.orders.bars.map((bar) => (
+            {SNACK_BARS.map((bar) => (
               <div
                 key={bar.name}
                 className="bg-white rounded-3xl p-6 shadow-md border border-[#D9A441]/10 hover:shadow-xl transition-shadow"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-[#0A1A4A]" style={{ fontFamily: 'Pacifico, cursive' }}>
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="text-[#0A1A4A] text-xl" style={{ fontFamily: 'Pacifico, cursive' }}>
                     {bar.name}
                   </h4>
+                  <span className="text-xs uppercase tracking-wide text-[#D9A441]">
+                    Precios escalados
+                  </span>
                 </div>
-                <p className="text-[#222222] opacity-75 text-sm leading-relaxed">{bar.description}</p>
+                <p className="text-[#222222] opacity-75 text-sm leading-relaxed mb-4">{bar.description}</p>
+                {bar.tiers[0] && (
+                  <p className="text-sm font-semibold text-[#0A1A4A] mb-4">
+                    Desde ${bar.tiers[0].price.toLocaleString('es-MX')} · {bar.tiers[0].people} personas
+                  </p>
+                )}
+                <a
+                  href={`/barra/${bar.slug}`}
+                  className="inline-flex items-center gap-2 text-[#D9A441] font-semibold hover:gap-3 transition-all"
+                >
+                  Ver precios y agregar <ArrowRight size={16} />
+                </a>
               </div>
             ))}
           </div>
