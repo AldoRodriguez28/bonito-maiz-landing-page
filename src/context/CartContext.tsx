@@ -15,6 +15,8 @@ export type CartItem = {
   people: number;
   price: number;
   quantity: number;
+  flavors?: string[];
+  extras?: string[];
 };
 
 type CartContextValue = {
@@ -51,7 +53,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const quantity = item.quantity ?? 1;
     setItems((prev) => {
       const existingIndex = prev.findIndex(
-        (entry) => entry.slug === item.slug && entry.people === item.people
+        (entry) =>
+          entry.slug === item.slug &&
+          entry.people === item.people &&
+          JSON.stringify(entry.flavors ?? []) === JSON.stringify(item.flavors ?? []) &&
+          JSON.stringify(entry.extras ?? []) === JSON.stringify(item.extras ?? [])
       );
 
       if (existingIndex !== -1) {
@@ -74,6 +80,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         people: item.people,
         price: item.price,
         quantity,
+        flavors: item.flavors ?? [],
+        extras: item.extras ?? [],
       };
       setLastAdded(newItem);
       return [...prev, newItem];

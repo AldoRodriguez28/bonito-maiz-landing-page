@@ -3,6 +3,7 @@ import { ArrowLeft, Info, Users } from 'lucide-react';
 import { CartSummary } from '../components/CartSummary';
 import { useCart } from '../context/CartContext';
 import { SNACK_BARS } from '../data/snackBars';
+import { ToggleChip } from '../components/ui/ToggleChip';
 
 type SnackBarPageProps = {
   slug: string;
@@ -11,12 +12,16 @@ type SnackBarPageProps = {
 export function SnackBarPage({ slug }: SnackBarPageProps) {
   const bar = useMemo(() => SNACK_BARS.find((item) => item.slug === slug), [slug]);
   const [selectedPeople, setSelectedPeople] = useState<number>(bar?.tiers[0]?.people ?? 0);
+  const [selectedFlavors, setSelectedFlavors] = useState<string[]>([]);
+  const [selectedExtras, setSelectedExtras] = useState<string[]>([]);
   const { addItem } = useCart();
 
   useEffect(() => {
     if (bar?.tiers[0]) {
       setSelectedPeople(bar.tiers[0].people);
     }
+    setSelectedFlavors([]);
+    setSelectedExtras([]);
   }, [bar]);
 
   if (!bar) {
@@ -36,6 +41,14 @@ export function SnackBarPage({ slug }: SnackBarPageProps) {
   const selectedTier =
     bar.tiers.find((tier) => tier.people === selectedPeople) ?? bar.tiers[0] ?? null;
 
+  const toggleSelection = (value: string, current: string[], setter: (next: string[]) => void) => {
+    if (current.includes(value)) {
+      setter(current.filter((item) => item !== value));
+    } else {
+      setter([...current, value]);
+    }
+  };
+
   const handleAdd = () => {
     if (!selectedTier) return;
     addItem({
@@ -43,6 +56,8 @@ export function SnackBarPage({ slug }: SnackBarPageProps) {
       name: `${bar.name} snack bar`,
       people: selectedTier.people,
       price: selectedTier.price,
+      flavors: selectedFlavors,
+      extras: selectedExtras,
     });
   };
 
@@ -129,6 +144,12 @@ export function SnackBarPage({ slug }: SnackBarPageProps) {
                   {selectedTier ? selectedTier.people : 0} personas · $
                   {selectedTier ? selectedTier.price.toLocaleString('es-MX') : '0'}
                 </p>
+                {(selectedFlavors.length > 0 || selectedExtras.length > 0) && (
+                  <p className="text-sm text-[#0A1A4A]/70 mt-1">
+                    {selectedFlavors.length > 0 && <>Sabores: {selectedFlavors.join(', ')}. </>}
+                    {selectedExtras.length > 0 && <>Extras: {selectedExtras.join(', ')}.</>}
+                  </p>
+                )}
               </div>
               <button
                 onClick={handleAdd}
@@ -137,6 +158,46 @@ export function SnackBarPage({ slug }: SnackBarPageProps) {
                 Agregar al carrito
               </button>
             </div>
+
+            {(bar.flavors?.length || bar.extras?.length) && (
+              <div className="space-y-6">
+                {bar.flavors && bar.flavors.length > 0 && (
+                  <div>
+                    <p className="text-sm uppercase tracking-wide text-[#D9A441] font-semibold">
+                      Selecciona sabores
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {bar.flavors.map((flavor) => (
+                        <ToggleChip
+                          key={flavor}
+                          label={flavor}
+                          isActive={selectedFlavors.includes(flavor)}
+                          onClick={() => toggleSelection(flavor, selectedFlavors, setSelectedFlavors)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {bar.extras && bar.extras.length > 0 && (
+                  <div>
+                    <p className="text-sm uppercase tracking-wide text-[#D9A441] font-semibold">
+                      Selecciona complementos
+                    </p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {bar.extras.map((extra) => (
+                        <ToggleChip
+                          key={extra}
+                          label={extra}
+                          isActive={selectedExtras.includes(extra)}
+                          onClick={() => toggleSelection(extra, selectedExtras, setSelectedExtras)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           <CartSummary />
