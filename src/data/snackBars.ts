@@ -9,6 +9,8 @@ export type SnackBar = {
   description: string;
   tiers: SnackBarTier[];
   highlights?: string[];
+  flavors?: string[];
+  extras?: string[];
 };
 
 export const SNACK_BARS: SnackBar[] = [
@@ -24,6 +26,8 @@ export const SNACK_BARS: SnackBar[] = [
       { people: 50, price: 3500 },
     ],
     highlights: ['Incluye montaje', 'Servicio de staff', 'Toppings ilimitados'],
+    flavors: ['Clásico', 'Con queso', 'Con crema', 'Con chile del que pica', 'Con chile del que no pica'],
+    extras: ['Totopos', 'Chicharrón', 'Lima y chile en polvo', 'Mantequilla extra'],
   },
   {
     slug: 'marquesitas',
@@ -37,6 +41,8 @@ export const SNACK_BARS: SnackBar[] = [
       { people: 50, price: 4500 },
     ],
     highlights: ['Plancha y conos incluidos', 'Sabores personalizados', 'Chef en sitio'],
+    flavors: ['Nutella', 'Cajeta', 'Fresa', 'Plátano', 'Lechera'],
+    extras: ['Queso de bola extra', 'Trocitos de nuez', 'Galleta', 'Chispas de chocolate'],
   },
   {
     slug: 'vasos-locos',
@@ -50,6 +56,8 @@ export const SNACK_BARS: SnackBar[] = [
       { people: 50, price: 4000 },
     ],
     highlights: ['Salsas a elegir', 'Dulces y enchilados', 'Servicio de armado en vivo'],
+    flavors: ['Pepino', 'Jícama', 'Sandía', 'Piña', 'Mango'],
+    extras: ['Gomitas enchiladas', 'Cacahuates', 'Salsas al gusto', 'Chamoy', 'Limón'],
   },
   {
     slug: 'paletas-congeladas',
@@ -63,6 +71,8 @@ export const SNACK_BARS: SnackBar[] = [
       { people: 50, price: 3600 },
     ],
     highlights: ['Paletas frutales y cremosas', 'Hielera decorada', 'Reparto asistido'],
+    flavors: ['Limón', 'Mango', 'Fresa', 'Coco', 'Chocolate'],
+    extras: ['Chamoy', 'Chilito en polvo', 'Granola', 'Cacahuate', 'Topping de chocolate'],
   },
   {
     slug: 'pastel-individual',
@@ -76,5 +86,7 @@ export const SNACK_BARS: SnackBar[] = [
       { people: 50, price: 5000 },
     ],
     highlights: ['Sabores a elegir', 'Decoración de mesa', 'Montaje incluido'],
+    flavors: ['Vainilla', 'Chocolate', 'Red velvet', 'Zanahoria'],
+    extras: ['Chispas de chocolate', 'Frutos rojos', 'Ganache', 'Crema batida', 'Caramelo salado'],
   },
 ];

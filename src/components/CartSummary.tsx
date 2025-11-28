@@ -12,14 +12,21 @@ export function CartSummary({ compact = false }: CartSummaryProps) {
   const whatsappMessage =
     items.length === 0
       ? 'Hola, quiero cotizar una barra de snacks'
-      : `Hola, quiero confirmar este pedido:%0A${items
-          .map(
-            (item) =>
-              `- ${item.name} • ${item.people} personas • $${item.price.toLocaleString('es-MX')} (x${
-                item.quantity
-              })`
-          )
-          .join('%0A')}%0ATotal: $${total.toLocaleString('es-MX')}`;
+      : encodeURIComponent(
+          [
+            'Hola, quiero confirmar este pedido:',
+            ...items.map((item) => {
+              const details = [];
+              if (item.flavors?.length) details.push(`Sabores: ${item.flavors.join(', ')}`);
+              if (item.extras?.length) details.push(`Extras: ${item.extras.join(', ')}`);
+              const detailText = details.length ? ` (${details.join(' | ')})` : '';
+              return `- ${item.name} • ${item.people} personas${detailText} • $${item.price.toLocaleString(
+                'es-MX'
+              )} x${item.quantity}\n`;
+            }),
+            `\nTotal: $${total.toLocaleString('es-MX')}`,
+          ].join('\n')
+        );
 
   const whatsappLink = `https://wa.me/${content.contact.whatsappNumber}?text=${whatsappMessage}`;
 
@@ -48,11 +55,18 @@ export function CartSummary({ compact = false }: CartSummaryProps) {
               key={item.id}
               className="flex items-start justify-between p-4 rounded-2xl bg-[#FAFAF7] border border-[#D9A441]/10"
             >
-              <div>
+              <div className="space-y-1">
                 <p className="font-semibold text-[#0A1A4A]">{item.name}</p>
                 <p className="text-sm text-[#0A1A4A]/70">
                   {item.people} personas · {item.quantity}x
                 </p>
+                {(item.flavors?.length || item.extras?.length) && (
+                  <p className="text-xs text-[#0A1A4A]/70">
+                    {item.flavors?.length ? `Sabores: ${item.flavors.join(', ')}` : ''}
+                    {item.flavors?.length && item.extras?.length ? ' · ' : ''}
+                    {item.extras?.length ? `Extras: ${item.extras.join(', ')}` : ''}
+                  </p>
+                )}
                 <p className="font-semibold text-[#D9A441]">
                   ${item.price.toLocaleString('es-MX')}
                 </p>
