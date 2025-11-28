@@ -33,7 +33,7 @@ export function CartSidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 right-0 h-full bg-white z-50 shadow-2xl transition-all duration-300 ${isOpen
+        className={`fixed top-0 right-0 inset-y-0 bg-white z-50 shadow-2xl transition-all duration-300 max-h-svh ${isOpen
           ? 'translate-x-0 sm:w-full xs:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 2xl:w-1/3'
           : 'translate-x-full w-0 md:w-0 lg:w-0 xl:w-0 2xl:w-0'
           }`}
@@ -49,8 +49,8 @@ export function CartSidebar() {
           </button>
         </div>
 
-        <div className="h-full flex flex-col">
-          <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+        <div className="h-[90%] max-h-full flex flex-col min-h-0 overflow-hidden">
+          <div className="flex-1 overflow-y-auto max-h-[calc(100vh-210px)] px-6 py-4 space-y-4">
             {items.length === 0 ? (
               <div className="flex flex-col items-center justify-center text-center text-[#0A1A4A]/70 py-12">
                 <ShoppingBag size={32} className="text-[#D9A441] mb-3" />

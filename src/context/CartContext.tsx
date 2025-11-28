@@ -1,4 +1,12 @@
-import { createContext, ReactNode, useContext, useMemo, useState, useCallback } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useMemo,
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
 
 export type CartItem = {
   id: string;
@@ -25,7 +33,17 @@ type CartContextValue = {
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const stored = localStorage.getItem('cart-items');
+      if (!stored) return [];
+      const parsed = JSON.parse(stored) as CartItem[];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  });
   const [lastAdded, setLastAdded] = useState<CartItem | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -74,6 +92,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
     () => items.reduce((sum, item) => sum + item.price * item.quantity, 0),
     [items]
   );
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      localStorage.setItem('cart-items', JSON.stringify(items));
+    } catch {
+      // ignore write errors
+    }
+  }, [items]);
 
   const clearLastAdded = () => setLastAdded(null);
 
