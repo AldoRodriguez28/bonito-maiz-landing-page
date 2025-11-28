@@ -56,6 +56,7 @@
       "scripts": {
           "dev": "vite",
           "build": "vite build",
+          "postbuild": "cp dist/index.html dist/404.html && node scripts/generate-static-routes.js",
           "dev:css": "tailwindcss -i ./src/styles/globals.css -o ./src/index.css --watch",
           "build:css": "tailwindcss -i ./src/styles/globals.css -o ./src/index.css --minify"
       }
